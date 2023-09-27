@@ -32,7 +32,7 @@ offset_bottom = 0.311981
 theme = SubResource("Theme_0jo4t")
 horizontal_scroll_mode = 0
 script = ExtResource("1_s4g5s")
-categorySectionScene = ExtResource("2_dg6ga")
+_categorySectionScene = ExtResource("2_dg6ga")
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]

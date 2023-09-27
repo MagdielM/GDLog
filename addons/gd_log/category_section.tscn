@@ -36,7 +36,7 @@ offset_bottom = 40.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 script = ExtResource("1_2055k")
-graphScene = ExtResource("2_hp3km")
+_graphScene = ExtResource("2_hp3km")
 
 [node name="Category Label" type="Label" parent="."]
 unique_name_in_owner = true
