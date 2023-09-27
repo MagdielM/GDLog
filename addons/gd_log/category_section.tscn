@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://8uf1o82rgrxu"]
+
+[ext_resource type="Script" path="res://addons/gd_log/CategorySection.cs" id="1_2055k"]
+[ext_resource type="PackedScene" uid="uid://c8wwgka7wx0wu" path="res://addons/gd_log/graph.tscn" id="2_hp3km"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2scmp"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.384314, 0.384314, 0.384314, 0.537255)
+border_color = Color(0.24936, 0.26784, 0.29864, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
+anti_aliasing = false
+
+[sub_resource type="FontVariation" id="FontVariation_8oq0k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mfmxu"]
+font = SubResource("FontVariation_8oq0k")
+font_size = 20
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_t1w7f"]
+color = Color(1, 1, 1, 0.372549)
+
+[node name="Category Section" type="VBoxContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_2055k")
+graphScene = ExtResource("2_hp3km")
+
+[node name="Category Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HeaderSmall"
+theme_override_styles/normal = SubResource("StyleBoxFlat_2scmp")
+text = "Category"
+label_settings = SubResource("LabelSettings_mfmxu")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Entry Text" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Divider" type="HSeparator" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_t1w7f")

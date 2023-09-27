@@ -1,0 +1,20 @@
+config_version=5
+
+[application]
+
+config/name="GDLog-old"
+run/main_scene="res://node_3d.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Log="*res://addons/gd_log/log.tscn"
+
+[dotnet]
+
+project/assembly_name="GDLog"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gd_log/plugin.cfg")

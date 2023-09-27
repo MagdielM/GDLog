@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgw37gjv2jnio"]
+
+[ext_resource type="FontFile" uid="uid://cvnh1anjiiijf" path="res://addons/gd_log/jb_mono.fontdata" id="1_pent3"]
+[ext_resource type="Script" path="res://addons/gd_log/Log.cs" id="1_s4g5s"]
+[ext_resource type="PackedScene" uid="uid://8uf1o82rgrxu" path="res://addons/gd_log/category_section.tscn" id="2_dg6ga"]
+
+[sub_resource type="Theme" id="Theme_0jo4t"]
+default_font = ExtResource("1_pent3")
+default_font_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jpw6b"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0, 0, 0, 0.290196)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Log" type="ScrollContainer"]
+visible = false
+clip_children = 2
+anchors_preset = -1
+anchor_left = 0.0078125
+anchor_top = 0.0123457
+anchor_right = 0.319861
+anchor_bottom = 0.987173
+offset_right = -0.480011
+offset_bottom = 0.311981
+theme = SubResource("Theme_0jo4t")
+horizontal_scroll_mode = 0
+script = ExtResource("1_s4g5s")
+categorySectionScene = ExtResource("2_dg6ga")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jpw6b")
+
+[node name="Log Container" type="VBoxContainer" parent="PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="No Log Message" type="Label" parent="PanelContainer/Log Container"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "No active logs."
+horizontal_alignment = 1
