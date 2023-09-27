@@ -1,4 +1,4 @@
 public partial interface ILogData
 {
-	public string Category { get; }
+    public string Category { get; }
 }
