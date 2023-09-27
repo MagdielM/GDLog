@@ -1,5 +1,6 @@
 extends Node3D
 
+var physics_time: float;
 var should_log_pos: bool;
 
 func _input(event: InputEvent) -> void:
@@ -22,7 +23,8 @@ func _process(_delta: float) -> void:
 
 	pass;
 
-func _physics_process(_delta: float) -> void:
-	var num := sin(Time.get_ticks_msec() * 0.01) * 25 + 50.0;
+func _physics_process(delta: float) -> void:
+	physics_time += delta;
+	var num := sin(physics_time * 10) * 25 + 50.0;
 	Log.Graph(num, "Physics Process Graph", 0.0, 100.0, Color.LIGHT_SKY_BLUE, 100, "Physics Test");
 	Log.Text(str(num), "Physics Test");
