@@ -1,4 +1,5 @@
 # GDLog
+![GDLog logo](https://github.com/MagdielM/GDLog/assets/56076033/842731c9-a576-421d-9106-9c1e9483246d)
 
 GDLog is a logging and graphing tool written in C# for Godot 4.2 that lets you quickly and easily track real-time data in your projects. The plugin was designed for simplicity and ease of use: the entire API surface is just two methods!
 
