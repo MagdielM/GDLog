@@ -30,7 +30,7 @@ public partial class GraphLine : Control
             points[i] = new Vector2(x, y);
         }
 
-        DrawPolyline(points, LineColor, 0.5f, true);
+        DrawPolyline(points, LineColor, 1f, true);
     }
 
     public void Initialize(
