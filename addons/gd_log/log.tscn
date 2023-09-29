@@ -45,6 +45,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jpw6b")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_constants/separation = 32
 
 [node name="No Log Message" type="Label" parent="PanelContainer/Log Container"]
 unique_name_in_owner = true
