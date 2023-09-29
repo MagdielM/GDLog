@@ -27,9 +27,22 @@ The `Text()` method takes only two parameters: the text to be logged and the cat
 - "max" (double): The upper bound of the graph.
 - "color" (Color): The color of the graph line.
 - "length" (uint): The length of the X axis of the graph, measured in points.
+- "graphBehavior (int): The behavior of the graph display when values exceed the given min and max values.
 - "category" (string): The category under which to place the graph.
 
 As mentioned earlier, graphs only persist in the window so long as new values are being pushed to them every frame. All values logged with the same `graphName` and `category` will be pushed to the same graph. The configuration parameters for the graph are only acknowledged when the graph is logged to for the first time. To reconfigure the graph, allow it to be removed by not calling the method with the desired `graphName` and `category` for at least one frame, and then push new values with the new graph configuration.
+
+#### Graph Behavior
+
+The `graphBehavior` parameter can take the following options:
+
+- Default (0): The graph line will go off-screen when graph values exceed limits.
+- Clip (1): The graph line will be capped at the borders when graph values exceed limits.
+- AutoScale (2): The graph limits will automatically adjust when graph values exceed current limits.
+
+Any values outside of these will be treated as Default by the graph.
+
+Since the native C# enum where these options are defined, `GraphBehaviorOptions`, is inaccessible to GDScript, a GDScript type named `GraphBehavior` with identical options is also provided. Note that in the GDScript type the options are named in SCREAMING_CAMEL_CASE to better suit GDScript style guidelines.
 
 ### Usage in GDScript vs. C#
 

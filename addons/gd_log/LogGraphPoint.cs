@@ -7,4 +7,5 @@ public readonly partial record struct LogGraphPoint(
     double Min,
     double Max,
     uint Length,
-    Color Color) : ILogData;
+    Color Color,
+    GraphBehaviorOptions GraphBehavior) : ILogData;

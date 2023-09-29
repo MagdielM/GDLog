@@ -224,18 +224,30 @@ public partial class Log : ScrollContainer
     /// <param name="max">The upper bound of the graph.</param>
     /// <param name="color">The color of the graph line.</param>
     /// <param name="length">The length of the X axis of the graph, measured in points.</param>
+    /// <param name="graphBehavior">
+    /// The behavior of the graph display when values exceed the given <paramref name="min"/> and
+    /// <paramref name="max"/> values. See <see cref="GraphBehaviorOptions"/> for details.
+    /// </param>
     /// <param name="category">The category under which to place the graph.</param>
-    public void Graph(double value, string graphName, double min, double max, Color color, uint length = 100u, string category = "Uncategorized")
+    public void Graph(
+        double value,
+        string graphName,
+        double min,
+        double max,
+        Color color,
+        uint length = 100u,
+        GraphBehaviorOptions graphBehavior = GraphBehaviorOptions.Default,
+        string category = "Uncategorized")
     {
         if (!OS.HasFeature("editor")) return; // Do nothing in release builds.
 
         if (Engine.IsInPhysicsFrame())
         {
-            _physicsProcessEntries.Add(new LogGraphPoint(category, graphName, value, min, max, length, color));
+            _physicsProcessEntries.Add(new LogGraphPoint(category, graphName, value, min, max, length, color, graphBehavior));
         }
         else
         {
-            _processEntries.Add(new LogGraphPoint(category, graphName, value, min, max, length, color));
+            _processEntries.Add(new LogGraphPoint(category, graphName, value, min, max, length, color, graphBehavior));
         }
     }
 }

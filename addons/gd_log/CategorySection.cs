@@ -98,7 +98,8 @@ public partial class CategorySection : VBoxContainer
                     entry.Max,
                     entry.Length,
                     entry.Color,
-                    areEntriesFromPhysicsFrames);
+                    areEntriesFromPhysicsFrames,
+                    entry.GraphBehavior);
                 logGraphs.Add(entry.GraphID, graph);
                 AddChild(graph);
             }

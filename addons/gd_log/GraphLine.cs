@@ -13,6 +13,8 @@ public partial class GraphLine : Control
 
     private Color LineColor { get; set; }
 
+    private GraphBehaviorOptions GraphBehavior { get; set; }
+
     public override void _Draw()
     {
         if (DataPoints.Count < 2) return;
@@ -31,17 +33,30 @@ public partial class GraphLine : Control
         DrawPolyline(points, LineColor, 0.5f, true);
     }
 
-    public void Initialize(uint length, double minValue, double maxValue, Color lineColor)
+    public void Initialize(
+        uint length,
+        double minValue,
+        double maxValue,
+        Color lineColor,
+        GraphBehaviorOptions graphBehavior)
     {
         Length = length;
         MinValue = minValue;
         MaxValue = maxValue;
         LineColor = lineColor;
+        GraphBehavior = graphBehavior;
     }
 
     public void PushDataPoint(double point)
     {
         DataPoints.Add(point);
+        
+        if (GraphBehavior == GraphBehaviorOptions.AutoScale)
+        {
+            if (point < MinValue) MinValue = Mathf.Floor(point);
+            if (point > MaxValue) MaxValue = Mathf.Ceil(point);
+        }
+
         QueueRedraw();
 
         if (DataPoints.Count > Length) DataPoints.RemoveAt(0);
