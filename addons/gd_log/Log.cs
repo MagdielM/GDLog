@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// <para>
 /// A debug window that provides methods for logging text and graphing values in real time. The
 /// window's visibility can be toggled using the <c>=</c> key on QWERTY keyboards, or whichever key
 /// is in the equivalent location in other keyboard layouts.
-/// </para>
-///
+/// </summary>
+/// <remarks>
 /// <para>
 /// The API is meant to be used in a similar fashion to immediate mode GUI commands. Therefore, text
 /// logs are only displayed for one frame, and graphs only persist so long as new values are logged
 /// to them each frame. Calls from <c>_PhysicsProcess</c> or from methods called by
 /// <c>_PhysicsProcess</c> are handled automatically: the logging methods will work as expected.
 /// </para>
-///
 /// <para>
 /// All methods of the class check for <c>OS.HasFeature("editor")</c> before performing any of their
 /// actual functionality, so the class will effectively do nothing in release builds.
 /// </para>
-/// </summary>
+/// </remarks>
 public partial class Log : ScrollContainer
 {
     private const string InputActionName = "toggle_log_window";
