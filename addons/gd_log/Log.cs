@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +22,7 @@ using System.Linq;
 /// </remarks>
 public partial class Log : ScrollContainer
 {
-    private const string InputActionName = "toggle_log_window";
+    public const string ToggleVisibilityAction = "toggle_log_window";
 
     [Export] private PackedScene _categorySectionScene;
 
@@ -35,6 +36,44 @@ public partial class Log : ScrollContainer
 
     private readonly Dictionary<string, CategorySection> _categorySections = new();
 
+    public static Log Instance
+    {
+        get => instance;
+        set
+        {
+            if (instance is not null) throw new InvalidOperationException("Only the single autoloaded instance of "
+                + $"{typeof(Log)} may exist.");
+
+            instance = value;
+        }
+    }
+    private static Log instance;
+
+    public override void _EnterTree()
+    {
+        if (!OS.HasFeature("editor"))
+        {
+            QueueFree(); // Immediately remove in release builds.
+            return;
+        }
+
+        Instance = this;
+
+        InputEventKey toggleEvent = new()
+        {
+            PhysicalKeycode = Key.Equal,
+        };
+        InputMap.AddAction(ToggleVisibilityAction, 0.0f);
+        InputMap.ActionAddEvent(ToggleVisibilityAction, toggleEvent);
+    }
+
+    public override void _ExitTree()
+    {
+        if (!OS.HasFeature("editor")) return; // Do nothing in release builds.
+
+        InputMap.EraseAction(ToggleVisibilityAction);
+    }
+
     public override void _Ready()
     {
         if (!OS.HasFeature("editor")) return; // Do nothing in release builds.
@@ -46,20 +85,13 @@ public partial class Log : ScrollContainer
         // ProcessPhysicsPriority = int.MinValue;
         _logContainer = GetNode<VBoxContainer>("%Log Container");
         _noLogMessageLabel = GetNode<Label>("%No Log Message");
-
-        InputEventKey toggleEvent = new()
-        {
-            PhysicalKeycode = Key.Equal,
-        };
-        InputMap.AddAction(InputActionName, 0.0f);
-        InputMap.ActionAddEvent(InputActionName, toggleEvent);
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledKeyInput(InputEvent @event)
     {
         if (!OS.HasFeature("editor")) return; // Do nothing in release builds.
 
-        if (!@event.IsActionPressed(InputActionName, exactMatch: true))
+        if (!@event.IsActionPressed(ToggleVisibilityAction, exactMatch: true))
         {
             return;
         }
@@ -186,18 +218,9 @@ public partial class Log : ScrollContainer
     /// </summary>
     /// <param name="text">The text to be logged.</param>
     /// <param name="category">The name of the category under which to log the text.</param>
-    public void Text(string text, string category = "Uncategorized")
+    public static void Text(string text, string category)
     {
-        if (!OS.HasFeature("editor")) return; // Do nothing in release builds.
-
-        if (Engine.IsInPhysicsFrame())
-        {
-            _physicsProcessEntries.Add(new LogText(category, text));
-        }
-        else
-        {
-            _processEntries.Add(new LogText(category, text));
-        }
+        Instance?.TextImpl(text, category);
     }
 
     /// <summary>
@@ -227,7 +250,8 @@ public partial class Log : ScrollContainer
     /// <paramref name="max"/> values. See <see cref="GraphBehaviorOptions"/> for details.
     /// </param>
     /// <param name="category">The category under which to place the graph.</param>
-    public void Graph(
+    
+    public static void Graph(
         double value,
         string graphName,
         double min,
@@ -236,6 +260,33 @@ public partial class Log : ScrollContainer
         uint length = 100u,
         GraphBehaviorOptions graphBehavior = GraphBehaviorOptions.Default,
         string category = "Uncategorized")
+    {
+        Instance?.GraphImpl(value, graphName, min, max, color, length, graphBehavior, category);
+    }
+
+    private void TextImpl(string text, string category)
+    {
+        if (!OS.HasFeature("editor")) return; // Do nothing in release builds.
+
+        if (Engine.IsInPhysicsFrame())
+        {
+            _physicsProcessEntries.Add(new LogText(category, text));
+        }
+        else
+        {
+            _processEntries.Add(new LogText(category, text));
+        }
+    }
+
+    private void GraphImpl(
+        double value,
+        string graphName,
+        double min,
+        double max,
+        Color color,
+        uint length,
+        GraphBehaviorOptions graphBehavior,
+        string category)
     {
         if (!OS.HasFeature("editor")) return; // Do nothing in release builds.
 
