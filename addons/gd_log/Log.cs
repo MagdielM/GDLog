@@ -61,7 +61,7 @@ public partial class Log : ScrollContainer
 
         InputEventKey toggleEvent = new()
         {
-            PhysicalKeycode = Key.Equal,
+            PhysicalKeycode = Key.F4,
         };
         InputMap.AddAction(ToggleVisibilityAction, 0.0f);
         InputMap.ActionAddEvent(ToggleVisibilityAction, toggleEvent);
