@@ -3,6 +3,8 @@ extends Node3D
 var physics_time: float;
 var should_log_pos: bool;
 
+@onready var Log: CSharpScript = load("res://addons/gd_log/Log.cs");
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		should_log_pos = not should_log_pos;

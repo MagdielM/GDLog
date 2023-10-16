@@ -20,7 +20,6 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="Log" type="ScrollContainer"]
-visible = false
 clip_children = 2
 anchors_preset = -1
 anchor_left = 0.0078125
