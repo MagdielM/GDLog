@@ -5,7 +5,7 @@ GDLog is a logging and graphing tool written in C# for Godot 4.2 that lets you q
 
 ## How to Use
 
-The `Log` class is a `Control` node that the plugin registers as an autoload singleton that displays all logged values. It can be toggled with the <c>=</c> key on QWERTY keyboards, or whichever key is in the equivalent location in other keyboard layouts. This class also provides both methods needed to log either text or graph values: namely, `Text()` and `Graph()`.
+The `Log` class is a `Control` node that the plugin registers as an autoload singleton that displays all logged values. It can be toggled with the <c>F4</c> key on QWERTY keyboards, or whichever key is in the equivalent location in other keyboard layouts. This class also provides both methods needed to log either text or graph values: namely, `Text()` and `Graph()`.
 
 The methods provided by this class are meant to be used similarly to immediate mode GUI commands. Therefore, text logs are only displayed for one frame, and graphs only persist so long as new values are logged to them each frame. Calls from `_PhysicsProcess()` or from methods called by `_PhysicsProcess()` are handled automatically: the logging methods will still work as expected.
 
