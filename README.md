@@ -46,24 +46,22 @@ Since the native C# enum where these options are defined, `GraphBehaviorOptions`
 
 ### Usage in GDScript vs. C#
 
-In the current dev release of Godot 4.2 (v4.2-dev5 as of the time of this writing), it's not possible to call C# static methods from GDScript. However, [a fix for this](https://github.com/godotengine/godot/pull/81783) has already been merged into master, which means the following usage instructions may change (for the better) soon.
-
-Because of the aforementioned limitation, `Text()` and `Graph()` are declared as instance methods. Since `Log` is an autoload singleton, these methods can still be accessed through the type name in GDScript, like so:
+GDLog uses an autoload singleton for nearly all of its functionality. This autoload is automatically added and removed as the plugin is enabled and disabled respectively. With the autoload in place, the logging methods can be called with similar syntax from either language:
 
 ```python
-Log.Text("Here's some text.", "Uncategorized")
+# Note that the optional arguments from the C# method do not transfer over to GDScript: they are all mandatory.
+Log.Text("Here's some text from GDScript.", "Uncategorized")
 ```
-
-You can also access them by getting the autoload from the root of the scene tree and calling the methods from the instance:
-
-```python
-var log_node = $"/root/Log";
-log_node.Text("Here's some text.", "Uncategorized")
-```
-
-However, you can currently only access the methods from an instance in C#, which means you have to get the autoload from the root of the scene tree in all cases:
-
 ```cs
-Log logNode = GetNode<Log>("/root/Log");
-logNode.Text("Here's some text.", "Uncategorized");
+Log.Text("Here's some text from C#.", "Uncategorized");
+```
+
+However, in GDScript's case, this calling syntax will break if the plugin is disabled or the autoload is removed, because it's calling the methods through the instance of the autoload instead of as a static method. If the autoload is not present, the GDScript parser will refuse to compile the script. To avoid this, load the `Log` class into a variable at runtime and call the methods from there, like so:
+
+```python
+
+var Log: CSharpScript = load("res://addons/gd_log/Log.cs") # Do note that this cannot be done in a fully type-safe manner at present.
+
+# Elsewhere, within the same scope as the Log variable.
+Log.Text("Here's some text from GDScript.", "Uncategorized")
 ```
