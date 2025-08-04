@@ -42,7 +42,7 @@ The `graphBehavior` parameter can take the following options:
 
 Any values outside of these will be treated as Default by the graph.
 
-Since the native C# enum where these options are defined, `GraphBehaviorOptions`, is inaccessible to GDScript, a GDScript type named `GraphBehavior` with identical options is also provided. Note that in the GDScript type the options are named in SCREAMING_CAMEL_CASE to better suit GDScript style guidelines.
+Since the native C# enum where these options are defined, `GraphBehaviorOptions`, is inaccessible to GDScript, a GDScript type named `GraphBehavior` with identical options is also provided. Note that in the GDScript type the options are named in SCREAMING_SNAKE_CASE to better suit GDScript style guidelines.
 
 ### Usage in GDScript vs. C#
 
